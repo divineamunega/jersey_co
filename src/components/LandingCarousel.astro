@@ -14,8 +14,47 @@ import pic10 from "../assets/football_pic10.jpg";
 let images = [pic3, pic2, pic1, pic5, pic4, pic6, pic7, pic8, pic9, pic10];
 ---
 
+<div
+  class="carousel-container relative z-10 flex w-full items-center justify-between overflow-clip"
+>
+  <div class="flex w-[100%]">
+    {
+      images.map((src, i) => (
+        <div
+          class="img-container h-50 w-[33.333%] flex-shrink-0 p-1 duration-500 sm:h-60 md:h-80 md:w-[20%] md:p-2"
+          data-index={i}
+        >
+          <div class="h-full w-full overflow-hidden rounded-t-full bg-white">
+            <Image
+              src={src}
+              alt={`Jersey ${i}`}
+              class="h-full w-full object-cover"
+            />
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  <button
+    class="next-button absolute top-30 right-[10%] hidden translate-[-50%] cursor-pointer items-center justify-center rounded-full bg-transparent p-5 text-2xl text-white backdrop-blur-2xl md:flex"
+  >
+    &rarr;
+  </button>
+  <button
+    class="prev-button absolute top-50 left-[15%] hidden translate-[-50%] cursor-pointer items-center justify-center rounded-full bg-transparent p-5 text-2xl text-white backdrop-blur-2xl md:flex"
+  >
+    &larr;
+  </button>
+</div>
+
 <script>
+  const breakPoint = 768;
   let currentIndex = 0;
+  let visibleImages = window.innerWidth < breakPoint ? 3 : 5;
+  let touchStartX = 0;
+  let touchEndX = 0;
+  const carousel = document.querySelector(".carousel-container") as HTMLElement;
 
   const imageContainers = document.querySelectorAll(
     ".img-container",
@@ -24,84 +63,87 @@ let images = [pic3, pic2, pic1, pic5, pic4, pic6, pic7, pic8, pic9, pic10];
   const nextButton = document.querySelector(".next-button") as HTMLElement;
   const prevButton = document.querySelector(".prev-button") as HTMLElement;
 
-  const calculateImagePosition = (currentIndex: number) => {
+  // Initial setup
+  calculateImagePosition(currentIndex);
+
+  // Add resize listener to update visible images count
+  window.addEventListener("resize", () => {
+    visibleImages = window.innerWidth < 768 ? 3 : 5;
+    calculateImagePosition(currentIndex);
+  });
+
+  function calculateImagePosition(currentIndex: number) {
     imageContainers.forEach((container, index) => {
       const translateX = currentIndex * -100;
-
-      let centerIndex = currentIndex + Math.floor(5 / 2);
-
+      let centerIndex = currentIndex + Math.floor(visibleImages / 2);
       const distance = index - centerIndex;
-
       const rotation = distance * 4;
       const translateY = Math.abs(distance) * 10;
 
       container.style.transform = `translateX(${translateX}%) rotate(${rotation}deg) translateY(${translateY}%)`;
     });
-  };
+  }
 
-  const handleNext = () => {
+  function handleNext() {
     if (imageContainers.length === 0) return;
     currentIndex += 1;
-    if (currentIndex === imageContainers.length / 2 + 1) {
+
+    if (visibleImages === 3 && currentIndex === imageContainers.length - 2) {
+      currentIndex = 0;
+    }
+
+    if (visibleImages === 5 && currentIndex === imageContainers.length - 4) {
       currentIndex = 0;
     }
     calculateImagePosition(currentIndex);
-  };
+  }
 
-  const handlePrev = () => {
+  function handlePrev() {
     if (imageContainers.length === 0) return;
-    if (currentIndex === 0) {
+    if (currentIndex === 0 && visibleImages === 5) {
       currentIndex =
         imageContainers.length % 2 === 0
           ? imageContainers.length / 2 + 1
           : imageContainers.length / 2;
     }
+
+    if (currentIndex === 0 && visibleImages === 3) {
+      currentIndex = imageContainers.length - 2;
+    }
     currentIndex -= 1;
     calculateImagePosition(currentIndex);
-  };
+  }
 
   nextButton.addEventListener("click", handleNext);
   prevButton.addEventListener("click", handlePrev);
-</script>
 
-<div
-  class="w-full relative z-10 justify-between items-center overflow-hidden mb-28 carousel-container"
->
-  <div class="flex w-[100%]">
-    {
-      images.map((src, i) => {
-        const centerIndex = 2; // Middle position of 5 images (0-based index)
-        const distance = i - centerIndex;
-        const rotation = distance * 4; // 4 degrees per step
-        const translateY = Math.abs(distance) * 10; // 10% per step away from center
+  const interval = setInterval(() => {
+    handleNext();
+  }, 10000);
+  // Swipe functionality
 
-        return (
-          <div
-            class="w-[20%] h-80 p-2  flex-shrink-0 img-container duration-500"
-            style={`transform: rotate(${rotation}deg) translateY(${translateY}%)`}
-            data-index={i}
-          >
-            <div class="w-full h-full overflow-hidden rounded-t-full bg-white">
-              <Image
-                src={src}
-                alt={`Jersey ${i}`}
-                class="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-        );
-      })
+  // Add touch event listeners
+  carousel.addEventListener("touchstart", (e) => {
+    touchStartX = e.touches[0].clientX;
+  });
+
+  carousel.addEventListener("touchend", (e) => {
+    touchEndX = e.changedTouches[0].clientX;
+    handleSwipe();
+  });
+
+  function handleSwipe() {
+    const swipeThreshold = 50; // minimum distance for a swipe
+    const swipeDistance = touchEndX - touchStartX;
+
+    if (Math.abs(swipeDistance) > swipeThreshold) {
+      if (swipeDistance > 0) {
+        // Swiped right
+        handlePrev();
+      } else {
+        // Swiped left
+        handleNext();
+      }
     }
-  </div>
-
-  <button
-    class="bg-transparent cursor-pointer backdrop-blur-2xl text-white text-4xl flex items-center justify-center absolute p-5 right-[10%] rounded-full top-50 translate-[-50%] next-button"
-  >
-    &rarr;
-  </button>
-  <button
-    class="bg-transparent cursor-pointer backdrop-blur-2xl text-white text-4xl flex items-center justify-center absolute p-5 rounded-full top-50 left-[15%] translate-[-50%] prev-button"
-  >
-    &larr;
-  </button>
-</div>
+  }
+</script>

@@ -1,5 +1,7 @@
 ---
 import { ShoppingBag, MenuIcon } from "lucide-react";
+import Sidebar from "./Sidebar.astro";
+
 const navItems = [
   { id: 1, label: "Home", active: true },
   { id: 2, label: "Shop", active: false },
@@ -9,19 +11,19 @@ const navItems = [
 ---
 
 <nav
-  class="flex fixed top-0 z-50 text-white w-full justify-between items-center px-4 md:px-10 py-10"
+  class="fixed top-0 z-20 flex w-full items-center justify-between px-4 py-10 text-white md:px-10"
 >
-  <div class="cursor-pointer">
-    <span class="text-4xl font-bold"
-      >A<span class="text-gray-400">R</span>A</span
-    >
+  <div
+    class="cursor-pointer rounded-md bg-gray-100/10 px-4 py-2 backdrop-blur-sm"
+  >
+    <span class="text-3xl font-bold">Jersey.Co</span>
   </div>
   <div class="hidden md:block">
-    <ul class="flex gap-4 bg-gray-100/10 backdrop-blur-sm rounded-full">
+    <ul class="flex gap-4 rounded-full bg-gray-100/10 backdrop-blur-sm">
       {
         navItems.map((item) => (
           <li
-            class={`cursor-pointer px-4 py-4 rounded-full hover:bg-gray-100/20 transition-all duration-300 ${item.active ? "bg-white text-black" : ""}`}
+            class={`cursor-pointer rounded-full px-4 py-4 transition-all duration-300 hover:bg-gray-100/20 ${item.active ? "bg-white text-black" : ""}`}
           >
             {item.label}
           </li>
@@ -29,20 +31,41 @@ const navItems = [
       }
     </ul>
   </div>
-  <div class="gap-2 flex items-center justify-center">
+  <div class="flex items-center justify-center gap-2">
     <button
-      class="hidden md:inline-block bg-gray-100/10 backdrop-blur-sm rounded-full p-4 cursor-pointer hover:bg-gray-100/20 transition-all duration-300"
+      class="hidden cursor-pointer rounded-full bg-gray-100/10 p-4 backdrop-blur-sm transition-all duration-300 hover:bg-gray-100/20 md:inline-block"
     >
       <ShoppingBag />
     </button>
     <button
-      class="hidden md:inline-block bg-gray-100/10 backdrop-blur-sm rounded-full p-4 cursor-pointer hover:bg-gray-100/20 transition-all duration-300"
+      class="hidden cursor-pointer rounded-full bg-gray-100/10 p-4 backdrop-blur-sm transition-all duration-300 hover:bg-gray-100/20 md:inline-block"
       >Explore</button
     >
     <button
-      class="md:hidden bg-gray-100/10 backdrop-blur-sm rounded-full p-4 cursor-pointer hover:bg-gray-100/20 transition-all duration-300 cursor-pointer"
+      class="cursor-pointer rounded-full bg-gray-100/10 p-4 backdrop-blur-sm transition-all duration-300 hover:bg-gray-100/20 md:hidden"
+      id="menuButton"
+      aria-label="Toggle menu"
     >
       <MenuIcon />
     </button>
   </div>
 </nav>
+
+<Sidebar
+  id="sidebar"
+  class="translate-x-full transition-transform duration-300"
+/>
+
+<script>
+  const menuButton = document.getElementById("menuButton");
+  const sidebar = document.getElementById("sidebar");
+  const closeButton = sidebar?.querySelector("button");
+
+  menuButton?.addEventListener("click", () => {
+    sidebar?.classList.toggle("translate-x-full");
+  });
+
+  closeButton?.addEventListener("click", () => {
+    sidebar?.classList.add("translate-x-full");
+  });
+</script>
