@@ -1,0 +1,36 @@
+---
+import AnimatedButton from "./AnimatedButton.astro";
+import LandingCarousel from "./LandingCarousel.astro";
+
+const landingContent = {
+  collection: "New Collection 2025",
+  heading: "Where style speaks, trends resonate, fashion flourishes",
+  description:
+    "Unveiling a fashion destination where trends blend seamlessly with individual style aspirations. Discover Today!",
+};
+---
+
+<main
+  class="w-full bg-contain bg-center relative flex items-center justify-center flex-col gap-10"
+  style="background-image: url('/src/assets/grain.png');"
+>
+  <div class="absolute inset-0 bg-black/80"></div>
+  <div
+    class="relative z-10 flex flex-col gap-4 items-center px-52 pt-44 pb-10 justify-center"
+  >
+    <p
+      class="text-gray-400 text-center px-6 text-sm py-1.5 border-2 border-gray-400 rounded-full w-fit mx-auto"
+    >
+      {landingContent.collection}
+    </p>
+    <h1 class="text-white text-5xl font-bold text-center">
+      {landingContent.heading}
+    </h1>
+
+    <p class="text-gray-400">{landingContent.description}</p>
+    <AnimatedButton>Shop Now</AnimatedButton>
+
+    <!-- <button class="bg-white text-black px-6 py-2 rounded-full cursor-pointer text-sm">Shop Now</button> -->
+  </div>
+  <LandingCarousel />
+</main>

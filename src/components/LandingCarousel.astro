@@ -1,0 +1,98 @@
+---
+import { Image } from "astro:assets";
+import pic1 from "../assets/football_pic1.jpg";
+import pic2 from "../assets/football_pic2.jpg";
+import pic3 from "../assets/football_pic3.jpg";
+import pic4 from "../assets/football_pic4.jpg";
+import pic5 from "../assets/football_pic5.png";
+
+const images = [pic3, pic2, pic1, pic5, pic4];
+---
+
+<script>
+  let currentIndex = 0;
+
+  const imageContainers = document.querySelectorAll(
+    ".img-container",
+  ) as NodeListOf<HTMLElement>;
+
+  const nextButton = document.querySelector(".next-button") as HTMLElement;
+  const prevButton = document.querySelector(".prev-button") as HTMLElement;
+
+  const calculateImagePosition = (currentIndex: number) => {
+    imageContainers.forEach((container, index) => {
+      const translateX = currentIndex * -100;
+
+      let centerIndex = currentIndex + Math.floor(5 / 2);
+
+      const distance = index - centerIndex;
+
+      const rotation = distance * 4;
+      const translateY = Math.abs(distance) * 10;
+
+      container.style.transform = `translateX(${translateX}%) rotate(${rotation}deg) translateY(${translateY}%)`;
+    });
+  };
+
+  const handleNext = () => {
+    if (imageContainers.length === 0) return;
+    // if (currentIndex === imageContainers.length / 2) {
+    //   currentIndex = 0;
+    // }
+    currentIndex += 1;
+    calculateImagePosition(currentIndex);
+  };
+
+  const handlePrev = () => {
+    if (imageContainers.length === 0) return;
+    // if (currentIndex === 0) {
+    //   currentIndex = imageContainers.length / 2;
+    // }
+    currentIndex -= 1;
+    calculateImagePosition(currentIndex);
+  };
+
+  nextButton.addEventListener("click", handleNext);
+  prevButton.addEventListener("click", handlePrev);
+</script>
+
+<div
+  class="w-full relative z-10 justify-between items-center overflow-hidden overflow-x-scroll mb-28 carousel-container"
+>
+  <div class="flex w-[100%]">
+    {
+      images.map((src, i) => {
+        const centerIndex = 2; // Middle position of 5 images (0-based index)
+        const distance = i - centerIndex;
+        const rotation = distance * 4; // 4 degrees per step
+        const translateY = Math.abs(distance) * 10; // 10% per step away from center
+
+        return (
+          <div
+            class="w-[20%] h-80 p-2  flex-shrink-0 img-container duration-500"
+            style={`transform: rotate(${rotation}deg) translateY(${translateY}%);`}
+          >
+            <div class="w-full h-full overflow-hidden rounded-t-full bg-white">
+              <Image
+                src={src}
+                alt={`Jersey ${i}`}
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        );
+      })
+    }
+  </div>
+
+  <button
+    class="bg-transparent cursor-pointer backdrop-blur-2xl text-white text-4xl flex items-center justify-center absolute p-5 right-[10%] rounded-full top-50 translate-[-50%] next-button"
+  >
+    &rarr;
+  </button>
+  <button
+    class="bg-transparent cursor-pointer backdrop-blur-2xl text-white text-4xl flex items-center justify-center absolute p-5 rounded-full top-50 left-[15%] translate-[-50%] prev-button"
+  >
+    &larr;
+  </button>
+</div>

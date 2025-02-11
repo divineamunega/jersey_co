@@ -1,0 +1,44 @@
+---
+import { ShoppingBag } from "lucide-react";
+
+const navItems = [
+  { id: 1, label: "Home", active: true },
+  { id: 2, label: "Shop", active: false },
+  { id: 3, label: "About", active: false },
+  { id: 4, label: "Contact", active: false },
+];
+---
+
+<nav
+  class="flex fixed top-0 z-50 text-white w-full justify-between items-center px-10 py-10"
+>
+  <div class="cursor-pointer">
+    <span class="text-4xl font-bold"
+      >A<span class="text-gray-400">R</span>A</span
+    >
+  </div>
+  <div>
+    <ul class="flex gap-4 bg-gray-100/10 backdrop-blur-sm rounded-full">
+      {
+        navItems.map((item) => (
+          <li
+            class={`cursor-pointer px-6 py-4 rounded-full hover:bg-gray-100/20 transition-all duration-300 ${item.active ? "bg-white text-black" : ""}`}
+          >
+            {item.label}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <div class="flex gap-4">
+    <button
+      class="bg-gray-100/10 backdrop-blur-sm rounded-full p-4 cursor-pointer hover:bg-gray-100/20 transition-all duration-300"
+    >
+      <ShoppingBag />
+    </button>
+    <button
+      class="bg-gray-100/10 backdrop-blur-sm rounded-full p-4 cursor-pointer hover:bg-gray-100/20 transition-all duration-300"
+      >Explore</button
+    >
+  </div>
+</nav>
