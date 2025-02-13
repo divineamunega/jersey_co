@@ -5,8 +5,13 @@ import pic2 from "../assets/football_pic2.jpg";
 import pic3 from "../assets/football_pic3.jpg";
 import pic4 from "../assets/football_pic4.jpg";
 import pic5 from "../assets/football_pic5.png";
+import pic6 from "../assets/football_pic6.jpeg";
+import pic7 from "../assets/football_pic7.jpg";
+import pic8 from "../assets/football_pic8.jpeg";
+import pic9 from "../assets/football_pic9.jpg";
+import pic10 from "../assets/football_pic10.jpg";
 
-const images = [pic3, pic2, pic1, pic5, pic4];
+let images = [pic3, pic2, pic1, pic5, pic4, pic6, pic7, pic8, pic9, pic10];
 ---
 
 <script>
@@ -15,9 +20,13 @@ const images = [pic3, pic2, pic1, pic5, pic4];
   const imageContainers = document.querySelectorAll(
     ".img-container",
   ) as NodeListOf<HTMLElement>;
+  console.log(imageContainers);
 
   const nextButton = document.querySelector(".next-button") as HTMLElement;
   const prevButton = document.querySelector(".prev-button") as HTMLElement;
+  const carouselContainer = document.querySelector(
+    ".carousel-container",
+  ) as HTMLElement;
 
   const calculateImagePosition = (currentIndex: number) => {
     imageContainers.forEach((container, index) => {
@@ -71,6 +80,7 @@ const images = [pic3, pic2, pic1, pic5, pic4];
           <div
             class="w-[20%] h-80 p-2  flex-shrink-0 img-container duration-500"
             style={`transform: rotate(${rotation}deg) translateY(${translateY}%);`}
+            data-index={i}
           >
             <div class="w-full h-full overflow-hidden rounded-t-full bg-white">
               <Image
