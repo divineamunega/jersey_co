@@ -24,9 +24,6 @@ let images = [pic3, pic2, pic1, pic5, pic4, pic6, pic7, pic8, pic9, pic10];
 
   const nextButton = document.querySelector(".next-button") as HTMLElement;
   const prevButton = document.querySelector(".prev-button") as HTMLElement;
-  const carouselContainer = document.querySelector(
-    ".carousel-container",
-  ) as HTMLElement;
 
   const calculateImagePosition = (currentIndex: number) => {
     imageContainers.forEach((container, index) => {
@@ -45,18 +42,21 @@ let images = [pic3, pic2, pic1, pic5, pic4, pic6, pic7, pic8, pic9, pic10];
 
   const handleNext = () => {
     if (imageContainers.length === 0) return;
-    // if (currentIndex === imageContainers.length / 2) {
-    //   currentIndex = 0;
-    // }
     currentIndex += 1;
+    if (currentIndex === imageContainers.length / 2 + 1) {
+      currentIndex = 0;
+    }
     calculateImagePosition(currentIndex);
   };
 
   const handlePrev = () => {
     if (imageContainers.length === 0) return;
-    // if (currentIndex === 0) {
-    //   currentIndex = imageContainers.length / 2;
-    // }
+    if (currentIndex === 0) {
+      currentIndex =
+        imageContainers.length % 2 === 0
+          ? imageContainers.length / 2 + 1
+          : imageContainers.length / 2;
+    }
     currentIndex -= 1;
     calculateImagePosition(currentIndex);
   };
@@ -66,7 +66,7 @@ let images = [pic3, pic2, pic1, pic5, pic4, pic6, pic7, pic8, pic9, pic10];
 </script>
 
 <div
-  class="w-full relative z-10 justify-between items-center overflow-hidden overflow-x-scroll mb-28 carousel-container"
+  class="w-full relative z-10 justify-between items-center overflow-hidden mb-28 carousel-container"
 >
   <div class="flex w-[100%]">
     {
@@ -79,7 +79,7 @@ let images = [pic3, pic2, pic1, pic5, pic4, pic6, pic7, pic8, pic9, pic10];
         return (
           <div
             class="w-[20%] h-80 p-2  flex-shrink-0 img-container duration-500"
-            style={`transform: rotate(${rotation}deg) translateY(${translateY}%);`}
+            style={`transform: rotate(${rotation}deg) translateY(${translateY}%)`}
             data-index={i}
           >
             <div class="w-full h-full overflow-hidden rounded-t-full bg-white">
