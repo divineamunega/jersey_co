@@ -1,6 +1,5 @@
 ---
-import { ShoppingBag } from "lucide-react";
-
+import { ShoppingBag, MenuIcon } from "lucide-react";
 const navItems = [
   { id: 1, label: "Home", active: true },
   { id: 2, label: "Shop", active: false },
@@ -10,19 +9,19 @@ const navItems = [
 ---
 
 <nav
-  class="flex fixed top-0 z-50 text-white w-full justify-between items-center px-10 py-10"
+  class="flex fixed top-0 z-50 text-white w-full justify-between items-center px-4 md:px-10 py-10"
 >
   <div class="cursor-pointer">
     <span class="text-4xl font-bold"
       >A<span class="text-gray-400">R</span>A</span
     >
   </div>
-  <div>
+  <div class="hidden md:block">
     <ul class="flex gap-4 bg-gray-100/10 backdrop-blur-sm rounded-full">
       {
         navItems.map((item) => (
           <li
-            class={`cursor-pointer px-6 py-4 rounded-full hover:bg-gray-100/20 transition-all duration-300 ${item.active ? "bg-white text-black" : ""}`}
+            class={`cursor-pointer px-4 py-4 rounded-full hover:bg-gray-100/20 transition-all duration-300 ${item.active ? "bg-white text-black" : ""}`}
           >
             {item.label}
           </li>
@@ -30,15 +29,20 @@ const navItems = [
       }
     </ul>
   </div>
-  <div class="flex gap-4">
+  <div class="gap-2 flex items-center justify-center">
     <button
-      class="bg-gray-100/10 backdrop-blur-sm rounded-full p-4 cursor-pointer hover:bg-gray-100/20 transition-all duration-300"
+      class="hidden md:inline-block bg-gray-100/10 backdrop-blur-sm rounded-full p-4 cursor-pointer hover:bg-gray-100/20 transition-all duration-300"
     >
       <ShoppingBag />
     </button>
     <button
-      class="bg-gray-100/10 backdrop-blur-sm rounded-full p-4 cursor-pointer hover:bg-gray-100/20 transition-all duration-300"
+      class="hidden md:inline-block bg-gray-100/10 backdrop-blur-sm rounded-full p-4 cursor-pointer hover:bg-gray-100/20 transition-all duration-300"
       >Explore</button
     >
+    <button
+      class="md:hidden bg-gray-100/10 backdrop-blur-sm rounded-full p-4 cursor-pointer hover:bg-gray-100/20 transition-all duration-300 cursor-pointer"
+    >
+      <MenuIcon />
+    </button>
   </div>
 </nav>
