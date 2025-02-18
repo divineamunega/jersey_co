@@ -1,0 +1,104 @@
+---
+import Layout from "../layouts/PageLayout.astro";
+import items from "../site_data/shopItems";
+import QuickViewModal from "../components/QuickViewModal.astro";
+import "../styles/global.css";
+---
+
+<Layout>
+  <main></main>
+  <div class="min-h-screen px-10 pt-28 pb-28 md:px-20">
+    <div class="flex flex-col gap-8">
+      <!-- Header with Search -->
+      <div class="flex flex-col gap-6">
+        <h1 class="text-4xl font-bold">Explore</h1>
+        <div class="relative max-w-md">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search jerseys..."
+            class="w-full rounded-full border-2 border-black px-6 py-3 focus:outline-none"
+          />
+        </div>
+      </div>
+
+      <!-- Grid -->
+      <div
+        class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+      >
+        {
+          items.map((item) => (
+            <div class="item-card flex flex-col gap-4">
+              <div class="group relative h-80 w-full overflow-hidden">
+                <img
+                  src={item.image}
+                  class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+                  alt={item.title}
+                />
+                <div class="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <button
+                  class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-white px-6 py-2 text-sm font-medium text-black opacity-0 transition-all duration-300 group-hover:opacity-100 hover:bg-transparent hover:text-white"
+                  onclick={`showQuickView({
+                    image: '${item.image}',
+                    title: '${item.title}',
+                    discountedPrice: '${item.discountedPrice}',
+                    originalPrice: '${item.originalPrice}',
+                    _percentDiscount: ${item._percentDiscount},
+                    percentDiscount: '${item.percentDiscount}'
+                  })`}
+                >
+                  Quick View
+                </button>
+              </div>
+              <div class="flex flex-col gap-3">
+                <p class="searchable-title text-left font-bold">{item.title}</p>
+                <div class="flex items-center justify-between">
+                  <span class="text-2xl font-bold">{item.discountedPrice}</span>
+                  <div>
+                    {item._percentDiscount > 0 && (
+                      <>
+                        <span class="text-xl text-gray-500 line-through">
+                          {item.originalPrice}
+                        </span>
+                        <span class="text-sm text-green-500">
+                          -{item.percentDiscount}
+                        </span>
+                      </>
+                    )}
+                  </div>
+                </div>
+                <button class="cursor-pointer rounded-full border-2 border-black bg-black py-2 text-white transition-colors duration-300 hover:bg-white hover:text-black">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+  <QuickViewModal />
+</Layout>
+
+<script>
+  const searchInput = document.getElementById(
+    "searchInput",
+  ) as HTMLInputElement;
+  const itemCards = document.querySelectorAll(".item-card");
+
+  searchInput?.addEventListener("input", (e) => {
+    const searchTerm = searchInput.value.toLowerCase();
+
+    itemCards.forEach((card) => {
+      const title =
+        card.querySelector(".searchable-title")?.textContent?.toLowerCase() ||
+        "";
+
+      if (title.includes(searchTerm)) {
+        card.classList.remove("hidden");
+      } else {
+        card.classList.add("hidden");
+      }
+    });
+  });
+</script>

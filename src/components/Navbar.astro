@@ -2,30 +2,32 @@
 import { ShoppingBag, MenuIcon } from "lucide-react";
 import Sidebar from "./Sidebar.astro";
 
-const navItems = [
-  { id: 1, label: "Home", active: true },
-  { id: 2, label: "Shop", active: false },
-  { id: 3, label: "About", active: false },
-  { id: 4, label: "Contact", active: false },
+const navLinks = [
+  { name: "Home", href: "home" },
+  { name: "Shop", href: "shop" },
+  { name: "About", href: "about" },
+  { name: "Contact", href: "contact" },
 ];
 ---
 
 <nav
-  class="fixed top-0 z-20 flex w-full items-center justify-between px-4 py-10 text-white md:px-10"
+  class="fixed top-0 z-20 flex w-full items-center justify-between px-4 py-5 text-white transition-all duration-300 md:px-10"
 >
   <div
     class="cursor-pointer rounded-md bg-gray-100/10 px-4 py-2 backdrop-blur-sm"
   >
-    <span class="text-3xl font-bold">Jersey.Co</span>
+    <a href="/" class="text-3xl font-bold">Jersey.Co</a>
   </div>
   <div class="hidden md:block">
     <ul class="flex gap-4 rounded-full bg-gray-100/10 backdrop-blur-sm">
       {
-        navItems.map((item) => (
+        navLinks.map((link) => (
           <li
-            class={`cursor-pointer rounded-full px-4 py-4 transition-all duration-300 hover:bg-gray-100/20 ${item.active ? "bg-white text-black" : ""}`}
+            class={`cursor-pointer rounded-full px-4 py-4 transition-all duration-300 hover:bg-gray-100/20`}
           >
-            {item.label}
+            <a href={`/${link.href}`} class="nav-link" data-section={link.href}>
+              {link.name}
+            </a>
           </li>
         ))
       }
@@ -37,9 +39,10 @@ const navItems = [
     >
       <ShoppingBag />
     </button>
-    <button
+    <a
+      href="/explore"
       class="hidden cursor-pointer rounded-full bg-gray-100/10 p-4 backdrop-blur-sm transition-all duration-300 hover:bg-gray-100/20 md:inline-block"
-      >Explore</button
+      >Explore</a
     >
     <button
       class="cursor-pointer rounded-full bg-gray-100/10 p-4 backdrop-blur-sm transition-all duration-300 hover:bg-gray-100/20 md:hidden"
@@ -57,10 +60,53 @@ const navItems = [
 />
 
 <script>
+  const navLinks = document.querySelectorAll(".nav-link");
+  const isHomePage = window.location.pathname === "/";
+
+  navLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const sectionId = (link as HTMLAnchorElement).getAttribute(
+        "data-section",
+      );
+
+      if (!isHomePage) {
+        // If not on home page, navigate to home page with section hash
+        window.location.href = `/#${sectionId}`;
+      } else {
+        // On home page, smooth scroll
+        const section = document.getElementById(sectionId!);
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    });
+  });
+
+  // Rest of your existing script
   const menuButton = document.getElementById("menuButton");
   const sidebar = document.getElementById("sidebar");
   const closeButton = sidebar?.querySelector("button");
 
+  const nav = document.querySelector("nav") as HTMLElement;
+
+  const observerFn = (entries: IntersectionObserverEntry[]) => {
+    if (entries[0].isIntersecting) {
+      nav.classList.remove("backdrop-blur-sm");
+      nav.classList.remove("bg-black");
+    } else {
+      nav.classList.add("bg-black");
+      nav.classList.add("backdrop-blur-sm");
+    }
+  };
+
+  const main = document.querySelector("main") as HTMLElement;
+  const observer = new IntersectionObserver(observerFn, {
+    root: null,
+    rootMargin: "-100px",
+  });
+
+  observer.observe(main);
   menuButton?.addEventListener("click", () => {
     sidebar?.classList.toggle("translate-x-full");
   });

@@ -1,0 +1,115 @@
+<div id="quickViewModal" class="fixed inset-0 z-50 hidden">
+  <!-- Backdrop -->
+  <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+
+  <!-- Modal -->
+  <div
+    class="absolute top-1/2 left-1/2 w-[90%] max-w-4xl -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-6"
+  >
+    <button
+      id="closeModal"
+      class="absolute top-4 right-4 text-gray-500 hover:text-black"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+      <div class="aspect-square w-full overflow-hidden">
+        <img id="modalImage" class="h-full w-full object-cover" src="" alt="" />
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <h2 id="modalTitle" class="text-2xl font-bold"></h2>
+        <div class="flex items-center gap-4">
+          <span id="modalPrice" class="text-3xl font-bold"></span>
+          <span
+            id="modalOriginalPrice"
+            class="text-xl text-gray-500 line-through"></span>
+          <span id="modalDiscount" class="text-sm text-green-500"></span>
+        </div>
+        <button
+          class="mt-4 cursor-pointer rounded-full border-2 border-black bg-black py-3 text-white transition-colors duration-300 hover:bg-white hover:text-black"
+        >
+          Add to Cart
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById("quickViewModal");
+  const closeBtn = document.getElementById("closeModal");
+  const modalImage = document.getElementById("modalImage") as HTMLImageElement;
+  const modalTitle = document.getElementById("modalTitle");
+  const modalPrice = document.getElementById("modalPrice");
+  const modalOriginalPrice = document.getElementById("modalOriginalPrice");
+  const modalDiscount = document.getElementById("modalDiscount");
+
+  // Close modal when clicking outside
+  modal?.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.classList.add("hidden");
+    }
+  });
+
+  // Close modal with close button
+  closeBtn?.addEventListener("click", () => {
+    modal?.classList.add("hidden");
+  });
+
+  // Close modal with Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      modal?.classList.add("hidden");
+    }
+  });
+
+  // Export function to show modal
+  window.showQuickView = (item: any) => {
+    if (modal && modalImage && modalTitle && modalPrice) {
+      modal.classList.remove("hidden");
+      modalImage.src = item.image;
+      modalImage.alt = item.title;
+      modalTitle.textContent = item.title;
+      modalPrice.textContent = item.discountedPrice;
+
+      if (item._percentDiscount > 0) {
+        modalOriginalPrice!.textContent = item.originalPrice;
+        modalDiscount!.textContent = `-${item.percentDiscount}`;
+        modalOriginalPrice?.classList.remove("hidden");
+        modalDiscount?.classList.remove("hidden");
+      } else {
+        modalOriginalPrice?.classList.add("hidden");
+        modalDiscount?.classList.add("hidden");
+      }
+    }
+  };
+</script>
+
+<style>
+  #quickViewModal {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>

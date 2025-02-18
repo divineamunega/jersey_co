@@ -1,0 +1,54 @@
+---
+interface Props {
+  image: string;
+  title: string;
+  discountedPrice: string;
+  originalPrice?: string;
+  percentDiscount?: string;
+  _percentDiscount?: number;
+}
+
+const {
+  image,
+  title,
+  discountedPrice,
+  originalPrice,
+  percentDiscount,
+  _percentDiscount,
+} = Astro.props;
+---
+
+<swiper-slide>
+  <div class="flex w-full flex-col items-center justify-center gap-4">
+    <div class="h-70 w-full sm:h-80">
+      <img
+        src={image}
+        class="block h-full w-full object-cover object-center"
+        alt={title}
+      />
+    </div>
+    <div class="flex w-full flex-col gap-3">
+      <p class="text-left font-bold">{title}</p>
+      <div class="flex items-center justify-between">
+        <span class="text-2xl font-bold">{discountedPrice}</span>
+        <div>
+          {
+            _percentDiscount && _percentDiscount > 0 && (
+              <>
+                <span class="text-xl text-gray-500 line-through">
+                  {originalPrice}
+                </span>
+                <span class="text-sm text-green-500">-{percentDiscount}</span>
+              </>
+            )
+          }
+        </div>
+      </div>
+      <button
+        class="cursor-pointer rounded-full border-2 border-black bg-black py-2 text-white transition-colors duration-300 hover:bg-white hover:text-black"
+      >
+        Add to Cart
+      </button>
+    </div>
+  </div>
+</swiper-slide>

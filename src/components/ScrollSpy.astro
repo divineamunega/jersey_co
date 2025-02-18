@@ -1,0 +1,77 @@
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Only initialize ScrollSpy on home page
+    if (window.location.pathname !== "/") return;
+
+    const sections = document.querySelectorAll("section[id],main");
+    const navItems = document.querySelectorAll("nav li");
+    const navLinks = document.querySelectorAll(".nav-link");
+
+    const options = {
+      root: null,
+      rootMargin: "-10% 0px -90% 0px",
+      threshold: 0,
+    };
+
+    function updateActiveLink(id: string) {
+      navItems.forEach((item, index) => {
+        // Remove active state from all items
+        item.classList.remove("bg-white", "text-black");
+
+        // Add active state if the link matches current section
+        const link = navLinks[index];
+        if (link && link.getAttribute("data-section") === id) {
+          item.classList.add("bg-white", "text-black");
+        }
+      });
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          updateActiveLink(entry.target.id);
+        }
+      });
+    }, options);
+
+    // Handle hash change for direct navigation
+    window.addEventListener("hashchange", () => {
+      const hash = window.location.hash.slice(1);
+      if (hash) {
+        updateActiveLink(hash);
+      }
+    });
+
+    sections.forEach((section) => {
+      observer.observe(section);
+    });
+
+    // Set initial active state
+    function setInitialActive() {
+      // Check for hash in URL first
+      const hash = window.location.hash.slice(1);
+      if (hash) {
+        updateActiveLink(hash);
+        return;
+      }
+
+      // Otherwise find the visible section
+      let currentSection: Element | null = null;
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        if (
+          rect.top <= window.innerHeight / 2 &&
+          rect.bottom >= window.innerHeight / 2
+        ) {
+          currentSection = section;
+        }
+      });
+      if (currentSection) {
+        updateActiveLink((currentSection as HTMLElement).id);
+      }
+    }
+
+    setInitialActive();
+    window.addEventListener("load", setInitialActive);
+  });
+</script>

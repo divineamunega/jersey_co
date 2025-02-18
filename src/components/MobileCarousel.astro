@@ -1,0 +1,124 @@
+---
+import type { ShopItem } from "../types/ShopItem"; // You'll need to create this type
+import ShopItemSlide from "./ShopItemSlide.astro";
+
+interface Props {
+  items: ShopItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="relative overflow-hidden sm:hidden">
+  <swiper-container slides-per-view="1" space-between="20" navigation="true">
+    {
+      items.map((item) => (
+        <ShopItemSlide
+          image={item.image}
+          title={item.title}
+          discountedPrice={item.discountedPrice}
+          originalPrice={item.originalPrice}
+          percentDiscount={item.percentDiscount}
+          _percentDiscount={item._percentDiscount}
+        />
+      ))
+    }
+  </swiper-container>
+
+  <button
+    class="swiper-button-prev absolute top-[35%] left-[0%] z-10 -translate-y-1/2 rounded-full bg-white/80 p-2 shadow-md"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="h-6 w-6"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M15.75 19.5L8.25 12l7.5-7.5"></path>
+    </svg>
+  </button>
+  <button
+    class="swiper-button-next absolute top-[35%] right-[0%] z-10 -translate-y-1/2 rounded-full bg-white/80 p-2 shadow-md"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="h-6 w-6"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+    </svg>
+  </button>
+</div>
+
+<script>
+  import { register } from "swiper/element/bundle";
+  register();
+
+  const initSwiper = () => {
+    const swiperEls = document.querySelectorAll("swiper-container");
+
+    swiperEls.forEach((swiperEl) => {
+      const prevBtn = swiperEl.parentElement?.querySelector(
+        ".swiper-button-prev",
+      );
+      const nextBtn = swiperEl.parentElement?.querySelector(
+        ".swiper-button-next",
+      );
+
+      // Configure the Swiper instance
+      Object.assign(swiperEl as any, {
+        breakpoints: {
+          500: {
+            slidesPerView: 2,
+          },
+        },
+      });
+
+      // Initialize Swiper
+      swiperEl?.initialize();
+
+      prevBtn?.addEventListener("click", () => {
+        swiperEl?.swiper.slidePrev();
+      });
+
+      nextBtn?.addEventListener("click", () => {
+        swiperEl?.swiper.slideNext();
+      });
+    });
+  };
+
+  // Initialize on load
+  document.addEventListener("DOMContentLoaded", initSwiper);
+
+  // Reinitialize on resize
+  window.addEventListener("resize", initSwiper);
+</script>
+
+<style>
+  swiper-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  swiper-container::part(button-prev),
+  swiper-container::part(button-next) {
+    display: none;
+  }
+</style>

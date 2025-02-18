@@ -1,0 +1,23 @@
+---
+import items from "../site_data/shopItems.js";
+import ShopGrid from "./ShopGrid.astro";
+
+const limitedEditionItems = items.slice(4);
+const newArrivalsItems = items.slice(0, 4);
+---
+
+<section
+  id="shop"
+  class="flex flex-col items-center justify-center gap-2 px-10 pt-24 md:px-20"
+>
+  <h3 class="text-base text-gray-600 uppercase">Shop</h3>
+  <h2 class="mb-5 text-center text-3xl font-bold uppercase">New Arrivals</h2>
+  <ShopGrid items={newArrivalsItems} />
+</section>
+
+<section
+  class="flex flex-col items-center justify-center gap-2 px-10 pt-48 md:px-20"
+>
+  <h2 class="mb-5 text-center text-3xl font-bold uppercase">Limited Edition</h2>
+  <ShopGrid items={limitedEditionItems} />
+</section>

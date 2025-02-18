@@ -1,0 +1,112 @@
+<section
+  id="contact"
+  class="flex flex-col items-center justify-center gap-8 bg-gray-50 px-10 py-24 md:px-20"
+>
+  <h3 class="text-base text-gray-600 uppercase">Contact Us</h3>
+
+  <div class="max-w-3xl text-center">
+    <h2 class="mb-6 text-3xl font-bold uppercase">Get in Touch</h2>
+    <p class="mb-12 text-gray-600">
+      Have questions about our products or your order? We're here to help. Fill
+      out the form below and we'll get back to you as soon as possible.
+    </p>
+  </div>
+
+  <form class="flex w-full max-w-2xl flex-col gap-6">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+      <div class="flex flex-col gap-2">
+        <label for="firstName" class="text-sm font-medium text-gray-700"
+          >First Name</label
+        >
+        <input
+          type="text"
+          id="firstName"
+          name="firstName"
+          required
+          class="rounded-lg border border-gray-300 px-4 py-2 focus:border-black focus:outline-none"
+        />
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label for="lastName" class="text-sm font-medium text-gray-700"
+          >Last Name</label
+        >
+        <input
+          type="text"
+          id="lastName"
+          name="lastName"
+          required
+          class="rounded-lg border border-gray-300 px-4 py-2 focus:border-black focus:outline-none"
+        />
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label for="email" class="text-sm font-medium text-gray-700"
+        >Email Address</label
+      >
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        class="rounded-lg border border-gray-300 px-4 py-2 focus:border-black focus:outline-none"
+      />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label for="subject" class="text-sm font-medium text-gray-700"
+        >Subject</label
+      >
+      <select
+        id="subject"
+        name="subject"
+        required
+        class="rounded-lg border border-gray-300 px-4 py-2 focus:border-black focus:outline-none"
+      >
+        <option value="">Select a subject</option>
+        <option value="order">Order Inquiry</option>
+        <option value="product">Product Question</option>
+        <option value="shipping">Shipping Information</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label for="message" class="text-sm font-medium text-gray-700"
+        >Message</label
+      >
+      <textarea
+        id="message"
+        name="message"
+        required
+        rows="4"
+        class="rounded-lg border border-gray-300 px-4 py-2 focus:border-black focus:outline-none"
+      ></textarea>
+    </div>
+
+    <button
+      type="submit"
+      class="cursor-pointer rounded-full border-2 border-black bg-black px-8 py-3 text-white transition-colors duration-300 hover:bg-white hover:text-black"
+    >
+      Send Message
+    </button>
+  </form>
+
+  <div
+    class="mt-12 grid w-full max-w-2xl grid-cols-1 gap-6 text-center md:grid-cols-3"
+  >
+    <div class="flex flex-col gap-2">
+      <h4 class="font-bold">Email</h4>
+      <p class="text-gray-600">support@jerseystore.com</p>
+    </div>
+    <div class="flex flex-col gap-2">
+      <h4 class="font-bold">Phone</h4>
+      <p class="text-gray-600">+1 (555) 123-4567</p>
+    </div>
+    <div class="flex flex-col gap-2">
+      <h4 class="font-bold">Hours</h4>
+      <p class="text-gray-600">Mon-Fri: 9AM - 6PM EST</p>
+    </div>
+  </div>
+</section>
