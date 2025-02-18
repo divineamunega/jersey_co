@@ -6,6 +6,7 @@ const navLinks = [
   { name: "Shop", href: "#shop" },
   { name: "About", href: "#about" },
   { name: "Contact", href: "#contact" },
+  { name: "Explore", href: "/explore" },
 ];
 ---
 
@@ -52,6 +53,10 @@ const navLinks = [
       e.preventDefault();
       const href = link.getAttribute("href");
 
+      if (href === "/explore") {
+        window.location.href = href;
+        return;
+      }
       // Close sidebar
       sidebar?.classList.add("translate-x-full");
 
