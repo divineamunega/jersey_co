@@ -37,7 +37,7 @@ const items = [
     89.99,
     15,
     "£",
-    "./src/assets/shop/image1.png",
+    "/assets/shop/image1.png",
   ),
   new ShopItem(
     img2,
@@ -45,7 +45,7 @@ const items = [
     74.99,
     25,
     "£",
-    "./src/assets/shop/image2.png",
+    "/assets/shop/image2.png",
   ),
   new ShopItem(
     img3,
@@ -53,7 +53,7 @@ const items = [
     69.99,
     0,
     "£",
-    "./src/assets/shop/image3.png",
+    "/assets/shop/image3.png",
   ),
   new ShopItem(
     img4,
@@ -61,7 +61,7 @@ const items = [
     79.99,
     20,
     "£",
-    "./src/assets/shop/image4.png",
+    "/assets/shop/image4.png",
   ),
   new ShopItem(
     img5,
@@ -69,7 +69,7 @@ const items = [
     89.99,
     15,
     "£",
-    "./src/assets/shop/image5.png",
+    "/assets/shop/image5.png",
   ),
   new ShopItem(
     img6,
@@ -77,7 +77,7 @@ const items = [
     89.99,
     15,
     "£",
-    "./src/assets/shop/image6.png",
+    "/assets/shop/image6.png",
   ),
   new ShopItem(
     img7,
@@ -85,7 +85,7 @@ const items = [
     89.99,
     15,
     "£",
-    "./src/assets/shop/image7.png",
+    "/src/assets/shop/image7.png",
   ),
   new ShopItem(
     img8,
@@ -93,7 +93,7 @@ const items = [
     89.99,
     15,
     "£",
-    "./src/assets/shop/image8.png",
+    "/assets/shop/image8.png",
   ),
 ];
 
