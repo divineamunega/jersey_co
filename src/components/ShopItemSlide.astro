@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 interface Props {
   image: string;
   title: string;
@@ -21,10 +22,12 @@ const {
 <swiper-slide>
   <div class="flex w-full flex-col items-center justify-center gap-4">
     <div class="h-70 w-full sm:h-80">
-      <img
+      <Image
         src={image}
         class="block h-full w-full object-cover object-center"
         alt={title}
+        width={300}
+        height={300}
       />
     </div>
     <div class="flex w-full flex-col gap-3">

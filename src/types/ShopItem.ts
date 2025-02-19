@@ -5,4 +5,5 @@ export interface ShopItem {
   originalPrice: string;
   percentDiscount: string;
   _percentDiscount: number;
+  imagePath: string;
 }

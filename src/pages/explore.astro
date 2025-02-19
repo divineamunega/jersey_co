@@ -3,6 +3,7 @@ import Layout from "../layouts/PageLayout.astro";
 import items from "../site_data/shopItems";
 import QuickViewModal from "../components/QuickViewModal.astro";
 import "../styles/global.css";
+import { Image } from "astro:assets";
 ---
 
 <Layout>
@@ -30,7 +31,9 @@ import "../styles/global.css";
           items.map((item) => (
             <div class="item-card flex flex-col gap-4">
               <div class="group relative h-80 w-full overflow-hidden">
-                <img
+                <Image
+                  width={300}
+                  height={300}
                   src={item.image}
                   class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
                   alt={item.title}
@@ -44,7 +47,8 @@ import "../styles/global.css";
                     discountedPrice: '${item.discountedPrice}',
                     originalPrice: '${item.originalPrice}',
                     _percentDiscount: ${item._percentDiscount},
-                    percentDiscount: '${item.percentDiscount}'
+                    percentDiscount: '${item.percentDiscount}',
+                    imagePath: '${item.imagePath}'
                   })`}
                 >
                   Quick View

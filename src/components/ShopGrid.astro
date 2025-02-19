@@ -1,7 +1,7 @@
 ---
 import MobileCarousel from "./MobileCarousel.astro";
 import QuickViewModal from "./QuickViewModal.astro";
-
+import { Image } from "astro:assets";
 interface Props {
   items: {
     image: string;
@@ -10,6 +10,7 @@ interface Props {
     originalPrice: string;
     _percentDiscount: number;
     percentDiscount: string;
+    imagePath: string;
   }[];
 }
 
@@ -25,10 +26,12 @@ const { items } = Astro.props;
       items.map((item) => (
         <li class="mb-20 flex w-[48%] flex-col items-center justify-center gap-4 lg:mb-0 lg:w-[32%] xl:w-[23%]">
           <div class="group relative h-80 w-full overflow-hidden">
-            <img
+            <Image
               src={item.image}
               class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
               alt={item.title}
+              width={300}
+              height={300}
             />
             <div class="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             <button
@@ -39,7 +42,8 @@ const { items } = Astro.props;
                 discountedPrice: '${item.discountedPrice}',
                 originalPrice: '${item.originalPrice}',
                 _percentDiscount: ${item._percentDiscount},
-                percentDiscount: '${item.percentDiscount}'
+                percentDiscount: '${item.percentDiscount}',
+                imagePath: '${item.imagePath}'
               })`}
             >
               Quick View

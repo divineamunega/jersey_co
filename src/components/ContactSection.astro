@@ -1,3 +1,23 @@
+---
+const contactInfo = {
+  email: {
+    title: "Email",
+    value: "faridajomiloju@gmail.com",
+    href: "mailto:faridajomiloju@gmail.com",
+  },
+  phone: {
+    title: "Phone",
+    value: "+234 904 827 8552",
+    href: "https://wa.me/2349048278552",
+  },
+  hours: {
+    title: "Hours",
+    value: "Mon-Fri: 9AM - 6PM WAT",
+    href: null,
+  },
+};
+---
+
 <section
   id="contact"
   class="flex flex-col items-center justify-center gap-8 bg-gray-50 px-10 py-24 md:px-20"
@@ -96,17 +116,24 @@
   <div
     class="mt-12 grid w-full max-w-2xl grid-cols-1 gap-6 text-center md:grid-cols-3"
   >
-    <div class="flex flex-col gap-2">
-      <h4 class="font-bold">Email</h4>
-      <p class="text-gray-600">support@jerseystore.com</p>
-    </div>
-    <div class="flex flex-col gap-2">
-      <h4 class="font-bold">Phone</h4>
-      <p class="text-gray-600">+1 (555) 123-4567</p>
-    </div>
-    <div class="flex flex-col gap-2">
-      <h4 class="font-bold">Hours</h4>
-      <p class="text-gray-600">Mon-Fri: 9AM - 6PM EST</p>
-    </div>
+    {
+      Object.values(contactInfo).map(({ title, value, href }) => (
+        <div class="flex flex-col gap-2">
+          <h4 class="font-bold">{title}</h4>
+          {href ? (
+            <a
+              href={href}
+              class="text-gray-600 transition-colors hover:text-black"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {value}
+            </a>
+          ) : (
+            <p class="text-gray-600">{value}</p>
+          )}
+        </div>
+      ))
+    }
   </div>
 </section>
