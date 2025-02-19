@@ -1,0 +1,81 @@
+---
+interface Props {
+  label?: boolean;
+}
+
+const { label = true } = Astro.props;
+---
+
+<div class="flex items-center gap-4">
+  {label && <span class="text-gray-600">Quantity:</span>}
+  <div class="flex items-center rounded-lg border border-gray-300">
+    <button
+      data-decrease
+      class="px-3 py-1 text-xl transition-colors hover:bg-gray-100"
+      aria-label="Decrease quantity"
+    >
+      -
+    </button>
+    <span data-quantity class="border-x border-gray-300 px-4 py-1"> 1 </span>
+    <button
+      data-increase
+      class="px-3 py-1 text-xl transition-colors hover:bg-gray-100"
+      aria-label="Increase quantity"
+    >
+      +
+    </button>
+  </div>
+</div>
+
+<script>
+  class QuantitySelector extends HTMLElement {
+    quantity: number;
+    display: HTMLElement | null;
+    decreaseBtn: HTMLButtonElement | null;
+    increaseBtn: HTMLButtonElement | null;
+
+    constructor() {
+      super();
+      this.quantity = 1;
+      this.display = this.querySelector("[data-quantity]");
+      this.decreaseBtn = this.querySelector("[data-decrease]");
+      this.increaseBtn = this.querySelector("[data-increase]");
+
+      this.setupEventListeners();
+    }
+
+    setupEventListeners() {
+      this.decreaseBtn?.addEventListener("click", () => this.decrease());
+      this.increaseBtn?.addEventListener("click", () => this.increase());
+    }
+
+    decrease() {
+      if (this.quantity > 1) {
+        this.quantity--;
+        this.updateDisplay();
+      }
+    }
+
+    increase() {
+      this.quantity++;
+      this.updateDisplay();
+    }
+
+    updateDisplay() {
+      if (this.display) {
+        this.display.textContent = this.quantity.toString();
+      }
+    }
+
+    reset() {
+      this.quantity = 1;
+      this.updateDisplay();
+    }
+
+    getValue() {
+      return this.quantity;
+    }
+  }
+
+  customElements.define("quantity-selector", QuantitySelector);
+</script>

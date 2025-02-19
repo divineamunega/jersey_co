@@ -1,6 +1,5 @@
 ---
 import type { ImageMetadata } from "astro";
-import { Image } from "astro:assets";
 
 // Create a glob of all images
 const images = import.meta.glob<{ default: ImageMetadata }>(
@@ -49,7 +48,30 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
             class="text-xl text-gray-500 line-through"></span>
           <span id="modalDiscount" class="text-sm text-green-500"></span>
         </div>
+
+        <!-- Quantity Selector -->
+        <div class="mt-4 flex items-center gap-4">
+          <span class="text-gray-600">Quantity:</span>
+          <div class="flex items-center rounded-lg border border-gray-300">
+            <button
+              id="decreaseQuantity"
+              class="px-3 py-1 text-xl transition-colors hover:bg-gray-100"
+              >-</button
+            >
+            <span
+              id="quantityDisplay"
+              class="border-x border-gray-300 px-4 py-1">1</span
+            >
+            <button
+              id="increaseQuantity"
+              class="px-3 py-1 text-xl transition-colors hover:bg-gray-100"
+              >+</button
+            >
+          </div>
+        </div>
+
         <button
+          id="addToCartBtn"
           class="mt-4 cursor-pointer rounded-full border-2 border-black bg-black py-3 text-white transition-colors duration-300 hover:bg-white hover:text-black"
         >
           Add to Cart
@@ -87,14 +109,32 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
     }
   });
 
-  // Export function to show modal
+  // Quantity handling
+  let quantity = 1;
+  const quantityDisplay = document.getElementById("quantityDisplay");
+  const decreaseBtn = document.getElementById("decreaseQuantity");
+  const increaseBtn = document.getElementById("increaseQuantity");
+
+  decreaseBtn?.addEventListener("click", () => {
+    if (quantity > 1) {
+      quantity--;
+      quantityDisplay!.textContent = quantity.toString();
+    }
+  });
+
+  increaseBtn?.addEventListener("click", () => {
+    quantity++;
+    quantityDisplay!.textContent = quantity.toString();
+  });
+
+  // Reset quantity when modal opens
   window.showQuickView = (item) => {
     if (modal && modalImageContainer && modalTitle && modalPrice) {
       modal.classList.remove("hidden");
+      quantity = 1; // Reset quantity
+      quantityDisplay!.textContent = "1"; // Reset display
 
-      // Use the imported image directly since it's already optimized
       modalImageContainer.innerHTML = `<img src="${item.imagePath}" alt="${item.title}" class="h-full w-full object-cover">`;
-
       modalTitle.textContent = item.title;
       modalPrice.textContent = item.discountedPrice;
 
