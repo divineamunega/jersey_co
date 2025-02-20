@@ -67,7 +67,7 @@ const ShopGrid = ({ items }: ShopGridProps) => {
       <MobileCarousel items={items} onAddToCart={handleAddToCart} />
 
       {/* Desktop Grid */}
-      {/* <ToastContainer /> */}
+      <ToastContainer />
       <ul className="hidden flex-wrap justify-between overflow-hidden sm:flex">
         {items.map((item, index) => (
           <ShopGridItem

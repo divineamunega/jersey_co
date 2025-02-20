@@ -92,7 +92,7 @@ const items = [
     7999.99,
     0,
     "₦",
-    "/src/assets/shop/image7.png",
+    "/assets/shop/image7.png",
     "7",
   ),
   new ShopItem(
