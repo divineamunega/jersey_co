@@ -1,7 +1,7 @@
 ---
 import { ShoppingBag, MenuIcon } from "lucide-react";
 import Sidebar from "./Sidebar.astro";
-
+import NumberCart from "./react/NumberCart";
 const navLinks = [
   { name: "Home", href: "home" },
   { name: "Shop", href: "shop" },
@@ -34,11 +34,14 @@ const navLinks = [
     </ul>
   </div>
   <div class="flex items-center justify-center gap-2">
-    <button
-      class="hidden cursor-pointer rounded-full bg-gray-100/10 p-4 backdrop-blur-sm transition-all duration-300 hover:bg-gray-100/20 md:inline-block"
-    >
-      <ShoppingBag />
-    </button>
+    <a href="/cart">
+      <button
+        class="cursor-pointer rounded-full bg-gray-100/10 p-4 backdrop-blur-sm transition-all duration-300 hover:bg-gray-100/20 md:inline-block"
+      >
+        <NumberCart client:only="react" />
+        <ShoppingBag />
+      </button>
+    </a>
     <a
       href="/explore"
       class="hidden cursor-pointer rounded-full bg-gray-100/10 p-4 backdrop-blur-sm transition-all duration-300 hover:bg-gray-100/20 md:inline-block"

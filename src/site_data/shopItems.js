@@ -8,13 +8,14 @@ import img7 from "../assets/shop/image7.png";
 import img8 from "../assets/shop/image8.png";
 
 class ShopItem {
-  constructor(image, title, price, percentDiscount, currency, imagePath) {
+  constructor(image, title, price, percentDiscount, currency, imagePath, id) {
     this.image = image;
     this.title = title;
     this.price = price;
     this._percentDiscount = percentDiscount;
     this.currency = currency;
     this.imagePath = imagePath;
+    this.id = id;
   }
 
   get discountedPrice() {
@@ -38,6 +39,7 @@ const items = [
     0,
     "₦",
     "/assets/shop/image1.png",
+    "1",
   ),
   new ShopItem(
     img2,
@@ -46,6 +48,7 @@ const items = [
     0,
     "₦",
     "/assets/shop/image2.png",
+    "2",
   ),
   new ShopItem(
     img3,
@@ -54,6 +57,7 @@ const items = [
     0,
     "₦",
     "/assets/shop/image3.png",
+    "3",
   ),
   new ShopItem(
     img4,
@@ -62,6 +66,7 @@ const items = [
     0,
     "₦",
     "/assets/shop/image4.png",
+    "4",
   ),
   new ShopItem(
     img5,
@@ -70,6 +75,7 @@ const items = [
     0,
     "₦",
     "/assets/shop/image5.png",
+    "5",
   ),
   new ShopItem(
     img6,
@@ -78,6 +84,7 @@ const items = [
     0,
     "₦",
     "/assets/shop/image6.png",
+    "6",
   ),
   new ShopItem(
     img7,
@@ -86,6 +93,7 @@ const items = [
     0,
     "₦",
     "/src/assets/shop/image7.png",
+    "7",
   ),
   new ShopItem(
     img8,
@@ -94,6 +102,7 @@ const items = [
     0,
     "₦",
     "/assets/shop/image8.png",
+    "8",
   ),
 ];
 

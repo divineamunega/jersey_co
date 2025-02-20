@@ -15,14 +15,18 @@ const socialLinks = [
 ];
 ---
 
-<footer class="bg-gray-900 px-10 pt-16 pb-8 text-white md:px-20">
+<footer
+  class="relative px-10 pt-16 pb-8 text-white md:px-20"
+  style="background-image: url('/assets/grain.png');"
+>
+  <div class="absolute inset-0 bg-black/50 md:bg-black/70"></div>
   <div class="mx-auto max-w-7xl">
     <!-- Main Footer Content -->
     <div class="mb-12 flex flex-col items-center gap-8">
-      <h3 class="text-2xl font-bold">Jersey.Co</h3>
+      <h3 class="z-20 text-2xl font-bold">Jersey.Co</h3>
 
       <!-- Navigation Links -->
-      <nav class="flex gap-8">
+      <nav class="z-20 flex gap-8">
         {
           navLinks.map((link) => (
             <a
@@ -36,7 +40,7 @@ const socialLinks = [
       </nav>
 
       <!-- Social Links -->
-      <div class="flex gap-6">
+      <div class="z-20 flex gap-6">
         {
           socialLinks.map((link) => (
             <a
@@ -55,8 +59,10 @@ const socialLinks = [
     <div
       class="border-t border-gray-800 pt-8 text-center text-sm text-gray-400"
     >
-      © {currentYear} Jersey.Co. All rights reserved.
-      <div class="mt-2">
+      <div class="relative z-20">
+        © {currentYear} Jersey.Co. All rights reserved.
+      </div>
+      <div class="relative z-20">
         Made with <span class="text-red-600">❤️</span> by <a
           href="https://github.com/divineamunega">Divine</a
         >

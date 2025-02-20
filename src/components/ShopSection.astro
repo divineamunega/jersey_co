@@ -1,6 +1,6 @@
 ---
 import items from "../site_data/shopItems.js";
-import ShopGrid from "./ShopGrid.astro";
+import ShopGrid from "./ShopGrid.tsx";
 
 const limitedEditionItems = items.slice(4);
 const newArrivalsItems = items.slice(0, 4);
@@ -12,12 +12,12 @@ const newArrivalsItems = items.slice(0, 4);
 >
   <h3 class="text-base text-gray-600 uppercase">Shop</h3>
   <h2 class="mb-5 text-center text-3xl font-bold uppercase">New Arrivals</h2>
-  <ShopGrid items={newArrivalsItems} />
+  <ShopGrid items={newArrivalsItems} client:only="react" />
 </section>
 
 <section
   class="flex flex-col items-center justify-center gap-2 px-5 pt-24 md:px-20 md:pt-48"
 >
   <h2 class="mb-5 text-center text-3xl font-bold uppercase">Limited Edition</h2>
-  <ShopGrid items={limitedEditionItems} />
+  <ShopGrid items={limitedEditionItems} client:only="react" />
 </section>

@@ -1,9 +1,9 @@
 ---
 import Layout from "../layouts/PageLayout.astro";
-import items from "../site_data/shopItems";
-import QuickViewModal from "../components/QuickViewModal.astro";
 import "../styles/global.css";
-import { Image } from "astro:assets";
+import ExploreGrid from "../components/ExploreGrid";
+import it from "../site_data/shopItems";
+const items = [...it];
 ---
 
 <Layout>
@@ -24,7 +24,7 @@ import { Image } from "astro:assets";
       </div>
 
       <!-- Grid -->
-      <div
+      <!-- <div
         class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
       >
         {
@@ -78,10 +78,10 @@ import { Image } from "astro:assets";
             </div>
           ))
         }
-      </div>
+      </div> -->
+      <ExploreGrid items={items} client:only="react" />
     </div>
   </div>
-  <QuickViewModal />
 </Layout>
 
 <script>
