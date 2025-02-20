@@ -58,6 +58,8 @@ const ExploreGrid = function ({ items }: ShopGridProps) {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
     const cartNumber = document.querySelector(".nav-cart-number");
+    console.log(cartNumber, "CARTNUMBER", cartItems.length);
+
     if (cartNumber) {
       cartNumber.textContent = cartItems.length.toString();
     }

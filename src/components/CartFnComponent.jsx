@@ -24,7 +24,7 @@ const formatNumber = (number) => {
   );
 };
 
-const CartItem = ({ item, setCartItems }) => {
+const CartItem = ({ item, setCartItems, cartItems: crtIT }) => {
   const [quantity, setQuantity] = useState(item.quantity);
 
   useEffect(() => {
@@ -59,6 +59,11 @@ const CartItem = ({ item, setCartItems }) => {
         quantity,
       }));
       localStorage.setItem("cartItems", JSON.stringify(itemsToSave));
+
+      const cartNumber = document.querySelector(".nav-cart-number");
+      if (cartNumber) {
+        cartNumber.textContent = crtIT.length.toString();
+      }
 
       return updatedCartItems; // Return the updated cart items
     });
@@ -137,6 +142,7 @@ const CartComponent = function () {
                   item={item}
                   setCartItems={setCartItems}
                   key={item.id}
+                  cartItems={cartItems}
                 />
               );
             })}
