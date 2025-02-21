@@ -24,8 +24,7 @@ const MobileCarousel = ({ items, onAddToCart }: Props) => {
         slidesPerView={1}
         spaceBetween={20}
         navigation={{ enabled: true }}
-        // modules={[Navigation]}
-
+        modules={[Navigation]}
         breakpoints={{
           500: {
             slidesPerView: 2,

@@ -21,7 +21,7 @@ const ShopGridItem = ({
   const discountedPrice = `${item.currency}${item.price * (1 - item._percentDiscount / 100)}`;
 
   return (
-    <li className="mb-20 flex w-[48%] flex-col items-center justify-center gap-4 lg:mb-0 lg:w-[32%] xl:w-[23%]">
+    <li className="mb-10 flex w-[48%] flex-col items-center justify-center gap-4 lg:w-[32%] xl:w-[23%]">
       <div className="group relative h-80 w-full overflow-hidden">
         <img
           src={item.imagePath}
