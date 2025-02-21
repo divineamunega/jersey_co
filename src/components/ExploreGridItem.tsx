@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 interface QuickViewModalProps {
   item: {
     imagePath: string;
@@ -19,7 +17,7 @@ const ExploreGridItem = function ({
   handleAddToCart,
   handleQuickView,
 }: QuickViewModalProps) {
-  const discountedPrice = item.price * (1 - item._percentDiscount / 100);
+  const discountedPrice = `${item.currency}${item.price * (1 - item._percentDiscount / 100)}`;
 
   return (
     <div className="item-card flex flex-col gap-4">

@@ -57,7 +57,7 @@ const ExploreGrid = function ({ items }: ShopGridProps) {
     cartItems.push({ id: item.id, quantity: quantity });
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
-    const cartNumber = document.querySelector(".nav-cart-number");
+    const cartNumber = document.querySelector("#nav-cart-number");
     console.log(cartNumber, "CARTNUMBER", cartItems.length);
 
     if (cartNumber) {

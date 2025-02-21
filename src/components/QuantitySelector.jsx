@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const QuantitySelector = ({ label = true, quantity, setQuantity }) => {
+const QuantitySelector = ({ label = true, quantity, setQuantity, scale }) => {
   console.log(quantity);
 
   const decrease = () => {
@@ -16,7 +16,10 @@ const QuantitySelector = ({ label = true, quantity, setQuantity }) => {
   return (
     <div className="flex items-center gap-4">
       {label && <span className="text-gray-600">Quantity:</span>}
-      <div className="flex items-center rounded-lg border border-gray-300">
+      <div
+        className="flex items-center rounded-lg border border-gray-300"
+        style={{ scale: `${scale ? scale : "1"}` }}
+      >
         <button
           onClick={decrease}
           className="px-3 py-1 text-xl transition-colors hover:bg-gray-100"

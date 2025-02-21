@@ -10,7 +10,10 @@ const NumberCart = () => {
 
   if (cartItems)
     return (
-      <span className="nav-cart-number absolute top-0 right-0 rounded-full bg-white px-2 py-1 text-sm text-black">
+      <span
+        id="nav-cart-number"
+        className="absolute top-0 right-0 rounded-full bg-white px-2 py-1 text-sm text-black"
+      >
         {cartItems}
       </span>
     );

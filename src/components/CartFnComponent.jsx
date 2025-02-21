@@ -60,9 +60,12 @@ const CartItem = ({ item, setCartItems, cartItems: crtIT }) => {
       }));
       localStorage.setItem("cartItems", JSON.stringify(itemsToSave));
 
-      const cartNumber = document.querySelector(".nav-cart-number");
+      const cartNumber = document.querySelector("#nav-cart-number");
       if (cartNumber) {
-        cartNumber.textContent = crtIT.length.toString();
+        const number = JSON.parse(
+          localStorage.getItem("cartItems") || "[]",
+        ).length;
+        cartNumber.textContent = number;
       }
 
       return updatedCartItems; // Return the updated cart items
@@ -102,6 +105,7 @@ const CartItem = ({ item, setCartItems, cartItems: crtIT }) => {
             label={false}
             quantity={quantity}
             setQuantity={setQuantity}
+            scale={0.8}
           />
           <span className="font-bold">
             ₦{item.price * (1 - item._percentDiscount)}
