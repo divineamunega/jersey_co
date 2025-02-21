@@ -14,5 +14,8 @@ h6,
   font-family: "Montserrat", sans-serif;
 }
 
+.swiper-button-next {
+  color: red;
+}
 @import "tailwindcss";
 @config "../../tailwind.config.js";

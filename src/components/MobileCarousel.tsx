@@ -23,8 +23,9 @@ const MobileCarousel = ({ items, onAddToCart }: Props) => {
       <Swiper
         slidesPerView={1}
         spaceBetween={20}
-        navigation={true}
-        modules={[Navigation]}
+        navigation={{ enabled: true }}
+        // modules={[Navigation]}
+
         breakpoints={{
           500: {
             slidesPerView: 2,
