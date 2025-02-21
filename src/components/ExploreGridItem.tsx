@@ -20,7 +20,7 @@ const ExploreGridItem = function ({
   const discountedPrice = `${item.currency}${item.price * (1 - item._percentDiscount / 100)}`;
 
   return (
-    <div className="item-card flex flex-col gap-4">
+    <div id="item-card" className="item-card flex flex-col gap-4">
       <div className="group relative h-80 w-full overflow-hidden">
         <img
           width={300}
