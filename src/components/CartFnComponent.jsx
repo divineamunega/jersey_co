@@ -172,9 +172,11 @@ const CartComponent = function () {
                 <span className="font-bold">{totalCart}</span>
               </div>
             </div>
-            <button className="w-full rounded-full bg-black py-3 text-white transition-colors hover:bg-gray-800">
-              Proceed to Checkout
-            </button>
+            <a href="/confirm">
+              <button className="w-full rounded-full bg-black py-3 text-white transition-colors hover:bg-gray-800">
+                Proceed to Checkout
+              </button>
+            </a>
           </div>
         </div>
       </div>

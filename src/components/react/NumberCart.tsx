@@ -8,17 +8,14 @@ const NumberCart = () => {
     setCartItems(cartItems.length);
   }, []);
 
-  if (cartItems)
-    return (
-      <span
-        id="nav-cart-number"
-        className="absolute top-0 right-0 rounded-full bg-white px-2 py-1 text-sm text-black"
-      >
-        {cartItems}
-      </span>
-    );
-
-  return null;
+  return (
+    <span
+      id="nav-cart-number"
+      className="absolute top-0 right-0 rounded-full bg-white px-2 py-1 text-sm text-black"
+    >
+      {cartItems === 0 ? 0 : cartItems}
+    </span>
+  );
 };
 
 export default NumberCart;

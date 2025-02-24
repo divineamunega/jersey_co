@@ -1,0 +1,12 @@
+---
+import "../styles/global.css";
+
+import OrderConfirmation from "../components/OrderConfirmation";
+import PageLayout from "../layouts/PageLayout.astro";
+const URL = Astro.url.origin;
+---
+
+<PageLayout>
+  <main></main>
+  <OrderConfirmation client:only="react" URL={URL} />
+</PageLayout>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ExploreGridItem from "./ExploreGridItem";
 import QuickViewModal from "./QuickViewModal";
 import { toast, ToastContainer } from "react-toastify";
@@ -55,15 +55,19 @@ const ExploreGrid = function ({ items }: ShopGridProps) {
       progressClassName: "bg-green-600 text-white",
     });
     cartItems.push({ id: item.id, quantity: quantity });
+
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
-    const cartNumber = document.querySelector("#nav-cart-number");
-    console.log(cartNumber, "CARTNUMBER", cartItems.length);
+    setTimeout(() => {
+      const cartNumber = document.querySelector("#nav-cart-number");
+      console.log(cartNumber, "CARTNUMBER", cartItems.length);
 
-    if (cartNumber) {
-      cartNumber.textContent = cartItems.length.toString();
-    }
+      if (cartNumber) {
+        cartNumber.textContent = cartItems.length.toString();
+      }
+    }, 2000);
   };
+
   return (
     <>
       <ToastContainer />
