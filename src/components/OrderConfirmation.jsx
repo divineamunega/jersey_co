@@ -2,10 +2,6 @@ import { useState } from "react";
 import items from "../site_data/shopItems";
 import { toast, ToastContainer } from "react-toastify";
 const OrderConfirmation = ({ URL }) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
-  const [message, setMessage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -31,7 +27,7 @@ const OrderConfirmation = ({ URL }) => {
       [
         ...cart.map(
           (item) => `
-      ${item.quantity} ${item.title} at ${item.currency}${(item.price * (1 - item._percentDiscount)).toFixed(2)} you can check out the image at ${URL + item.imagePath}
+      ${item.quantity} ${item.title} at ${item.currency}${(item.price * (1 - item._percentDiscount)).toFixed(2)} you can check out the image at ${"https://jerseyco.vercel.app" + item.imagePath}
   `,
         ),
       ].join("\n"),
