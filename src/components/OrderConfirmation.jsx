@@ -38,7 +38,7 @@ const OrderConfirmation = ({ URL }) => {
       [
         ...cart.map(
           (item) => `
-        ${item.quantity} ${item.title} at ${item.currency}${(item.price * (1 - item._percentDiscount)).toFixed(2)} you can check out the image at ${URL + item.imagePath}
+        ${item.quantity} ${item.title} at ${item.currency}${(item.price * (1 - item._percentDiscount)).toFixed(2)} you can check out the image at ${"https://jerseyco.vercel.app" + item.imagePath}
     `,
         ),
       ].join("\n"),
